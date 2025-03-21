@@ -7,7 +7,7 @@ performs the following tasks:
 - Install and configure Zsh:
   - make sure it exists,
   - set it as the default shell for the user specified by the role.
-- Install Oh My Zsh with powerlevel10k custom theme.
+- Install Oh My Zsh with [powerlevel10k](https://github.com/romkatv/powerlevel10k) theme.
   - Install Meslo from (nerd-fonts) package 
   - Configure (Oh My) Zsh by adding custom path and plugins.
   - Install custom powerlevel10k config
