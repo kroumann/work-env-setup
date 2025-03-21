@@ -11,5 +11,5 @@ performs the following tasks:
   - Install Meslo from (nerd-fonts) package 
   - Configure (Oh My) Zsh by adding custom path and plugins.
   - Install custom powerlevel10k config
-- Install tmux and oh-my-tmux dotfiles
+- Install tmux and [oh-my-tmux](https://github.com/gpakosz/.tmux) dotfiles
 - Install neovim and treesitter
