@@ -1,0 +1,49 @@
+# Default variables for 'neovim' and treesitter role
+---
+# user vars:
+home: "{{ lookup('env', 'HOME') }}"
+user: "{{ lookup('env', 'USER') }}"
+
+# tmux vars
+tmux: true
+tmux_config_url: "https://github.com/kroumann/.tmux.git"
+tmux_config_dir: "{{ home }}/.config/tmux"
+
+# application versions
+neovim_version: "0.10.4"
+treesitter_version: "0.25.3"
+
+# variables for downloading appimages
+nvim_dl_dir: "/opt/nvim/{{ neovim_version }}"
+nvim_appimage_url: "https://github.com/neovim/neovim/releases/download/v{{ neovim_version }}/nvim-linux-x86_64.appimage"
+nvim_config_url: "https://github.com/kroumann/kickstart.nvim.git"
+nvim_config_dir: "{{ home }}/.config/nvim"
+nvim_nightly_url: "https://github.com/neovim/neovim/releases/download/nightly/nvim-linux-x86_64.appimage"
+
+treesitter_dl_dir: "/opt/treesitter/{{ treesitter_version }}"
+treesitter_dl_name: "tree-sitter-linux-x64.gz"
+treesitter_archive_url: "https://github.com/tree-sitter/tree-sitter/releases/download/v{{ treesitter_version }}/{{ treesitter_dl_name }}"
+treesitter_filename: "tree-sitter-linux-x64"
+
+# toggles for end-users
+neovim: true
+treesitter: true
+neovim_nightly: false
+neovim_pde: true
+
+
+
+
+neovim_apt_packages: []
+neovim_pip_packages: []
+neovim_npm_packages: []
+neovim_config_dirs: []
+neovim_external_config: []
+neovim_config_syncs: []
+
+# digging deeper
+neovim_pip3_packager_state: latest
+neovim_npm_packager_state: latest
+neovim_pip3_state: latest
+neovim_apt_state: latest
+...

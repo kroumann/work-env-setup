@@ -1,0 +1,39 @@
+# tasks file for neovim
+---
+- when: ansible_architecture == "x86_64"
+  block:
+    - name: Install tmux required packages
+      ansible.builtin.package:
+        name:
+          - tmux
+          - git
+          - fzf
+          - xclip
+        state: present
+      become: yes
+
+    - name: Install tmux config files from github
+      ansible.builtin.git:
+        repo: "{{ tmux_config_url }}"
+        dest: "{{ tmux_config_dir }}"
+        depth: 1
+      become_user: '{{ user }}'
+
+    - name: Create a symbolic to tmux config file
+      ansible.builtin.file:
+        src: "{{ tmux_config_dir }}/.tmux.conf"
+        dest: "{{ home }}/.tmux.conf"
+        owner: "{{ user }}"
+        group: "{{ user }}"
+        state: link
+
+    - name: Copy tmux config local file
+      ansible.builtin.copy:
+        src: "{{ tmux_config_dir }}/.tmux.conf.local"
+        dest: "{{ home }}/.tmux.conf.local"
+        owner: "{{ user }}"
+        group: "{{ user }}"
+        mode: 0644
+
+...
+# vim : filetype=yaml.ansible :

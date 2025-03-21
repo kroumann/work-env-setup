@@ -1,0 +1,48 @@
+---
+  - name: Setup Debian variant Systems
+    hosts: localhost
+    
+    tasks:
+    - name: Include vars from vars subfolder
+      ansible.builtin.include_vars:
+        dir: vars
+        ignore_unknown_extensions: True
+        extensions:
+          - 'yml'
+          - 'yaml'
+          - 'json'
+
+    - name: Install packages
+      ansible.builtin.package:
+        name:
+          - build-essential
+          - clangd
+          - ripgrep
+          - zsh
+          - tmux
+          - git
+          - fzf
+          - xclip
+          - luarocks
+          - nodejs
+          - curl
+          - npm
+          - fontconfig
+        state: present
+      become: yes
+
+    - name: Installl oh my zsh and powerlevel10k theme
+      ansible.builtin.import_tasks: tasks/install-oh-my-zsh.yml
+      vars:
+        home: "{{ lookup('env', 'HOME') }}"
+        user: "{{ lookup('env', 'USER') }}"
+
+    - name: Install tmux and pde files
+      ansible.builtin.import_tasks: tasks/install-tmux.yml
+      become: yes
+
+    - name: Install neovim treesitter and pde files
+      ansible.builtin.import_tasks: tasks/main.yml
+      become: yes
+
+

@@ -1,0 +1,35 @@
+# tasks file for neovim
+---
+
+- when: ansible_architecture == "x86_64"
+  block:
+
+  - name: "Ensure FUSE installed for using appimages."
+    ansible.builtin.apt:
+      name: libfuse2
+      state: latest
+    become: true
+
+  - name: "Latest nvim installed."
+    ansible.builtin.include_tasks: install-neovim.yml
+    when: neovim | bool
+
+  - name: "Latest tree-sitter installed."
+    ansible.builtin.include_tasks: install-treesitter.yml
+    when: treesitter | bool
+
+  - name: "Nightly neovim installed as 'nnvim'."
+    ansible.builtin.get_url:
+      url: "{{ nvim_nightly_url }}"
+      dest: /usr/local/bin/nnvim
+      owner: root
+      group: root
+      mode: '0755'
+    when: neovim_nightly | bool
+
+  - name: "Neovim PDE (Personal Development Environment)"
+    ansible.builtin.include_tasks: neovim-pde.yml
+    when: neovim_pde | bool
+
+...
+# vim : filetype=yaml.ansible :
